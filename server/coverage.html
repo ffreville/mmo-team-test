@@ -1,0 +1,1570 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>auth-server: Go Coverage Report</title>
+		<style>
+			body {
+				background: black;
+				color: rgb(80, 80, 80);
+			}
+			body, pre, #legend span {
+				font-family: Menlo, monospace;
+				font-weight: bold;
+			}
+			#topbar {
+				background: black;
+				position: fixed;
+				top: 0; left: 0; right: 0;
+				height: 42px;
+				border-bottom: 1px solid rgb(80, 80, 80);
+			}
+			#content {
+				margin-top: 50px;
+			}
+			#nav, #legend {
+				float: left;
+				margin-left: 10px;
+			}
+			#legend {
+				margin-top: 12px;
+			}
+			#nav {
+				margin-top: 10px;
+			}
+			#legend span {
+				margin: 0 5px;
+			}
+			.cov0 { color: rgb(192, 0, 0) }
+.cov1 { color: rgb(128, 128, 128) }
+.cov2 { color: rgb(116, 140, 131) }
+.cov3 { color: rgb(104, 152, 134) }
+.cov4 { color: rgb(92, 164, 137) }
+.cov5 { color: rgb(80, 176, 140) }
+.cov6 { color: rgb(68, 188, 143) }
+.cov7 { color: rgb(56, 200, 146) }
+.cov8 { color: rgb(44, 212, 149) }
+.cov9 { color: rgb(32, 224, 152) }
+.cov10 { color: rgb(20, 236, 155) }
+
+		</style>
+	</head>
+	<body>
+		<div id="topbar">
+			<div id="nav">
+				<select id="files">
+				
+				<option value="file0">github.com/ffreville/mmo-team-test/server/cmd/auth-server/main.go (0.0%)</option>
+				
+				<option value="file1">github.com/ffreville/mmo-team-test/server/cmd/game-server/main.go (0.0%)</option>
+				
+				<option value="file2">github.com/ffreville/mmo-team-test/server/cmd/gateway/main.go (0.0%)</option>
+				
+				<option value="file3">github.com/ffreville/mmo-team-test/server/internal/auth/handler.go (21.2%)</option>
+				
+				<option value="file4">github.com/ffreville/mmo-team-test/server/internal/auth/middleware.go (0.0%)</option>
+				
+				<option value="file5">github.com/ffreville/mmo-team-test/server/internal/auth/routes.go (0.0%)</option>
+				
+				<option value="file6">github.com/ffreville/mmo-team-test/server/internal/auth/service.go (6.0%)</option>
+				
+				<option value="file7">github.com/ffreville/mmo-team-test/server/internal/config/config.go (0.0%)</option>
+				
+				<option value="file8">github.com/ffreville/mmo-team-test/server/internal/database/postgres.go (0.0%)</option>
+				
+				<option value="file9">github.com/ffreville/mmo-team-test/server/internal/database/redis.go (0.0%)</option>
+				
+				<option value="file10">github.com/ffreville/mmo-team-test/server/internal/game/world/world.go (0.0%)</option>
+				
+				<option value="file11">github.com/ffreville/mmo-team-test/server/internal/network/websocket.go (0.0%)</option>
+				
+				</select>
+			</div>
+			<div id="legend">
+				<span>not tracked</span>
+			
+				<span class="cov0">not covered</span>
+				<span class="cov8">covered</span>
+			
+			</div>
+		</div>
+		<div id="content">
+		
+		<pre class="file" id="file0" style="display: none">package main
+
+import (
+        "log"
+
+        "github.com/ffreville/mmo-team-test/server/internal/config"
+)
+
+func main() <span class="cov0" title="0">{
+        cfg, err := config.Load("configs/config.yaml")
+        if err != nil </span><span class="cov0" title="0">{
+                log.Fatalf("Failed to load config: %v", err)
+        }</span>
+
+        <span class="cov0" title="0">log.Printf("Starting Auth Server v%s (commit: %s)", cfg.BuildVersion, cfg.BuildCommit)
+        log.Printf("Listening on %s:%d", cfg.Server.Host, cfg.Server.Port)
+
+        // TODO: Initialize database connection
+        // TODO: Initialize Redis connection
+        // TODO: Initialize auth service
+        // TODO: Start HTTP auth endpoints
+
+        // Placeholder - server runs until interrupt
+        select </span>{}
+}
+
+// Build info injected at compile time
+var (
+        BuildVersion = "0.1.0-dev"
+        BuildCommit  = "unknown"
+        BuildTime    = "unknown"
+)
+</pre>
+		
+		<pre class="file" id="file1" style="display: none">package main
+
+import (
+        "log"
+
+        "github.com/ffreville/mmo-team-test/server/internal/config"
+)
+
+func main() <span class="cov0" title="0">{
+        cfg, err := config.Load("configs/config.yaml")
+        if err != nil </span><span class="cov0" title="0">{
+                log.Fatalf("Failed to load config: %v", err)
+        }</span>
+
+        <span class="cov0" title="0">log.Printf("Starting Game Server v%s (commit: %s)", cfg.BuildVersion, cfg.BuildCommit)
+        log.Printf("Listening on %s:%d", cfg.Server.Host, cfg.Server.Port)
+
+        // TODO: Initialize database connection
+        // TODO: Initialize Redis connection
+        // TODO: Initialize game world
+        // TODO: Start WebSocket gateway
+        // TODO: Start HTTP health endpoint
+
+        // Placeholder - server runs until interrupt
+        select </span>{}
+}
+
+// Build info injected at compile time
+var (
+        BuildVersion = "0.1.0-dev"
+        BuildCommit  = "unknown"
+        BuildTime    = "unknown"
+)
+</pre>
+		
+		<pre class="file" id="file2" style="display: none">package main
+
+import (
+        "context"
+        "log"
+        "net/http"
+        "os"
+        "os/signal"
+        "syscall"
+        "time"
+
+        "github.com/ffreville/mmo-team-test/server/internal/auth"
+        "github.com/ffreville/mmo-team-test/server/internal/config"
+        "github.com/ffreville/mmo-team-test/server/internal/database"
+        "github.com/ffreville/mmo-team-test/server/internal/game/world"
+        "github.com/ffreville/mmo-team-test/server/internal/network"
+        "github.com/gorilla/websocket"
+)
+
+func main() <span class="cov0" title="0">{
+        cfg, err := config.Load("configs/config.yaml")
+        if err != nil </span><span class="cov0" title="0">{
+                log.Fatalf("Failed to load config: %v", err)
+        }</span>
+
+        <span class="cov0" title="0">log.Printf("Starting WebSocket Gateway v%s (commit: %s)", cfg.BuildVersion, cfg.BuildCommit)
+        log.Printf("Listening on %s:%d", cfg.Server.Host, cfg.Server.Port)
+
+        var db *database.PostgresDB
+        var redisClient *database.RedisClient
+        var authService *auth.AuthService
+
+        if cfg.Database.Host != "" </span><span class="cov0" title="0">{
+                db, err = database.NewPostgresDB(
+                        cfg.Database.Host,
+                        cfg.Database.Port,
+                        cfg.Database.User,
+                        cfg.Database.Password,
+                        cfg.Database.Name,
+                        cfg.Database.MaxOpenConns,
+                        cfg.Database.MaxIdleConns,
+                        cfg.Database.ConnMaxLifetime,
+                )
+                if err != nil </span><span class="cov0" title="0">{
+                        log.Printf("Warning: Failed to connect to database: %v", err)
+                        log.Printf("Running without database (using in-memory storage)")
+                }</span>
+        }
+
+        <span class="cov0" title="0">if cfg.Redis.Host != "" </span><span class="cov0" title="0">{
+                redisClient, err = database.NewRedisClient(
+                        cfg.Redis.Host,
+                        cfg.Redis.Port,
+                        cfg.Redis.DB,
+                        cfg.Redis.Password,
+                )
+                if err != nil </span><span class="cov0" title="0">{
+                        log.Printf("Warning: Failed to connect to Redis: %v", err)
+                        log.Printf("Running without Redis (sessions will not persist)")
+                }</span>
+        }
+
+        <span class="cov0" title="0">if db != nil &amp;&amp; redisClient != nil </span><span class="cov0" title="0">{
+                authService = auth.NewAuthService(
+                        db,
+                        redisClient,
+                        cfg.Auth.JWTSecret,
+                        cfg.Auth.BcryptCost,
+                )
+        }</span>
+
+        <span class="cov0" title="0">gameWorld := world.NewWorld()
+
+        gateway := network.NewGateway(authService, gameWorld, redisClient)
+
+        http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) </span><span class="cov0" title="0">{
+                conn, err := upgrader.Upgrade(w, r, nil)
+                if err != nil </span><span class="cov0" title="0">{
+                        log.Printf("WebSocket upgrade failed: %v", err)
+                        return
+                }</span>
+                <span class="cov0" title="0">gateway.HandleConnection(conn)</span>
+        })
+
+        <span class="cov0" title="0">http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) </span><span class="cov0" title="0">{
+                w.WriteHeader(http.StatusOK)
+                w.Write([]byte("OK"))
+        }</span>)
+
+        <span class="cov0" title="0">server := &amp;http.Server{
+                Addr:         cfg.Server.Host + ":" + string(rune(cfg.Server.Port+'0')),
+                ReadTimeout:  cfg.Server.ReadTimeout,
+                WriteTimeout: cfg.Server.WriteTimeout,
+        }
+
+        go func() </span><span class="cov0" title="0">{
+                log.Printf("Gateway listening on %s:%d", cfg.Server.Host, cfg.Server.Port)
+                if err := server.ListenAndServe(); err != nil &amp;&amp; err != http.ErrServerClosed </span><span class="cov0" title="0">{
+                        log.Fatalf("Server failed: %v", err)
+                }</span>
+        }()
+
+        <span class="cov0" title="0">interrupt := make(chan os.Signal, 1)
+        signal.Notify(interrupt, syscall.SIGINT, syscall.SIGTERM)
+        &lt;-interrupt
+
+        log.Println("Shutting down gateway...")
+
+        ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+        defer cancel()
+
+        server.Shutdown(ctx)
+        log.Println("Gateway stopped")</span>
+}
+
+var upgrader = websocket.Upgrader{
+        ReadBufferSize:  1024,
+        WriteBufferSize: 1024,
+        CheckOrigin:     func(r *http.Request) bool <span class="cov0" title="0">{ return true }</span>,
+}
+
+var (
+        BuildVersion = "0.1.0-dev"
+        BuildCommit  = "unknown"
+        BuildTime    = "unknown"
+)
+</pre>
+		
+		<pre class="file" id="file3" style="display: none">package auth
+
+import (
+        "net/http"
+        "strings"
+
+        "github.com/ffreville/mmo-team-test/server/pkg/models"
+        "github.com/labstack/echo/v4"
+)
+
+type AuthHandler struct {
+        authService *AuthService
+}
+
+func NewAuthHandler(authService *AuthService) *AuthHandler <span class="cov8" title="1">{
+        return &amp;AuthHandler{authService: authService}
+}</span>
+
+type RegisterRequest struct {
+        Username string `json:"username" validate:"required,min=3,max=50"`
+        Email    string `json:"email" validate:"required,email"`
+        Password string `json:"password" validate:"required,min=6"`
+}
+
+type LoginRequest struct {
+        Username string `json:"username" validate:"required"`
+        Password string `json:"password" validate:"required"`
+}
+
+type AuthResponse struct {
+        Success  bool   `json:"success"`
+        Token    string `json:"token,omitempty"`
+        PlayerID string `json:"player_id,omitempty"`
+        Message  string `json:"message,omitempty"`
+        Error    string `json:"error,omitempty"`
+}
+
+func (h *AuthHandler) Register(c echo.Context) error <span class="cov8" title="1">{
+        var req RegisterRequest
+        if err := c.Bind(&amp;req); err != nil </span><span class="cov8" title="1">{
+                return c.JSON(http.StatusBadRequest, AuthResponse{
+                        Success: false,
+                        Error:   "invalid request body",
+                })
+        }</span>
+
+        <span class="cov0" title="0">if err := c.Validate(&amp;req); err != nil </span><span class="cov0" title="0">{
+                return c.JSON(http.StatusBadRequest, AuthResponse{
+                        Success: false,
+                        Error:   err.Error(),
+                })
+        }</span>
+
+        <span class="cov0" title="0">user, err := h.authService.Register(req.Username, req.Email, req.Password)
+        if err != nil </span><span class="cov0" title="0">{
+                return c.JSON(http.StatusConflict, AuthResponse{
+                        Success: false,
+                        Error:   err.Error(),
+                })
+        }</span>
+
+        <span class="cov0" title="0">return c.JSON(http.StatusCreated, AuthResponse{
+                Success:  true,
+                Message:  "User registered successfully",
+                PlayerID: user.UserID,
+        })</span>
+}
+
+func (h *AuthHandler) Login(c echo.Context) error <span class="cov0" title="0">{
+        var req LoginRequest
+        if err := c.Bind(&amp;req); err != nil </span><span class="cov0" title="0">{
+                return c.JSON(http.StatusBadRequest, AuthResponse{
+                        Success: false,
+                        Error:   "invalid request body",
+                })
+        }</span>
+
+        <span class="cov0" title="0">if err := c.Validate(&amp;req); err != nil </span><span class="cov0" title="0">{
+                return c.JSON(http.StatusBadRequest, AuthResponse{
+                        Success: false,
+                        Error:   err.Error(),
+                })
+        }</span>
+
+        <span class="cov0" title="0">token, err := h.authService.Login(req.Username, req.Password)
+        if err != nil </span><span class="cov0" title="0">{
+                return c.JSON(http.StatusUnauthorized, AuthResponse{
+                        Success: false,
+                        Error:   err.Error(),
+                })
+        }</span>
+
+        // Get user_id from token claims for response
+        <span class="cov0" title="0">claims, _ := h.authService.ValidateToken(token)
+
+        return c.JSON(http.StatusOK, AuthResponse{
+                Success:  true,
+                Token:    token,
+                PlayerID: claims.UserID,
+                Message:  "Login successful",
+        })</span>
+}
+
+func (h *AuthHandler) Logout(c echo.Context) error <span class="cov8" title="1">{
+        authHeader := c.Request().Header.Get("Authorization")
+        if authHeader == "" </span><span class="cov8" title="1">{
+                return c.JSON(http.StatusBadRequest, AuthResponse{
+                        Success: false,
+                        Error:   "missing authorization header",
+                })
+        }</span>
+
+        <span class="cov0" title="0">token := strings.TrimPrefix(authHeader, "Bearer ")
+        if err := h.authService.Logout(token); err != nil </span><span class="cov0" title="0">{
+                return c.JSON(http.StatusUnauthorized, AuthResponse{
+                        Success: false,
+                        Error:   err.Error(),
+                })
+        }</span>
+
+        <span class="cov0" title="0">return c.JSON(http.StatusOK, AuthResponse{
+                Success: true,
+                Message: "Logged out successfully",
+        })</span>
+}
+
+func (h *AuthHandler) GetProfile(c echo.Context) error <span class="cov0" title="0">{
+        userID := c.Get("user_id").(string)
+
+        var user models.User
+        err := h.authService.db.Pool().QueryRow(c.Request().Context(),
+                "SELECT user_id, username, email, created_at, last_login, is_banned FROM users WHERE user_id = $1",
+                userID).Scan(&amp;user.UserID, &amp;user.Username, &amp;user.Email, &amp;user.CreatedAt, &amp;user.LastLogin, &amp;user.IsBanned)
+
+        if err != nil </span><span class="cov0" title="0">{
+                return c.JSON(http.StatusNotFound, AuthResponse{
+                        Success: false,
+                        Error:   "user not found",
+                })
+        }</span>
+
+        <span class="cov0" title="0">return c.JSON(http.StatusOK, map[string]interface{}{
+                "success":    true,
+                "user_id":    user.UserID,
+                "username":   user.Username,
+                "email":      user.Email,
+                "created_at": user.CreatedAt,
+                "last_login": user.LastLogin,
+                "is_banned":  user.IsBanned,
+        })</span>
+}
+</pre>
+		
+		<pre class="file" id="file4" style="display: none">package auth
+
+import (
+        "net/http"
+        "strings"
+        "time"
+
+        "github.com/ffreville/mmo-team-test/server/internal/database"
+        "github.com/labstack/echo/v4"
+)
+
+type AuthMiddleware struct {
+        authService *AuthService
+}
+
+func NewAuthMiddleware(authService *AuthService) *AuthMiddleware <span class="cov0" title="0">{
+        return &amp;AuthMiddleware{authService: authService}
+}</span>
+
+func (m *AuthMiddleware) Middleware() echo.MiddlewareFunc <span class="cov0" title="0">{
+        return func(next echo.HandlerFunc) echo.HandlerFunc </span><span class="cov0" title="0">{
+                return func(c echo.Context) error </span><span class="cov0" title="0">{
+                        authHeader := c.Request().Header.Get("Authorization")
+                        if authHeader == "" </span><span class="cov0" title="0">{
+                                return c.JSON(http.StatusUnauthorized, map[string]string{
+                                        "error": "missing authorization header",
+                                })
+                        }</span>
+
+                        <span class="cov0" title="0">parts := strings.SplitN(authHeader, " ", 2)
+                        if len(parts) != 2 || parts[0] != "Bearer" </span><span class="cov0" title="0">{
+                                return c.JSON(http.StatusUnauthorized, map[string]string{
+                                        "error": "invalid authorization format",
+                                })
+                        }</span>
+
+                        <span class="cov0" title="0">token := parts[1]
+                        claims, err := m.authService.ValidateToken(token)
+                        if err != nil </span><span class="cov0" title="0">{
+                                return c.JSON(http.StatusUnauthorized, map[string]string{
+                                        "error": "invalid or expired token",
+                                })
+                        }</span>
+
+                        <span class="cov0" title="0">c.Set("user_id", claims.UserID)
+                        c.Set("username", claims.Username)
+
+                        return next(c)</span>
+                }
+        }
+}
+
+type RateLimiter struct {
+        redis  *database.RedisClient
+        limit  int
+        window int
+}
+
+func NewRateLimiter(redis *database.RedisClient, limit int, window int) *RateLimiter <span class="cov0" title="0">{
+        return &amp;RateLimiter{redis: redis, limit: limit, window: window}
+}</span>
+
+func (r *RateLimiter) Middleware() echo.MiddlewareFunc <span class="cov0" title="0">{
+        return func(next echo.HandlerFunc) echo.HandlerFunc </span><span class="cov0" title="0">{
+                return func(c echo.Context) error </span><span class="cov0" title="0">{
+                        ip := c.RealIP()
+                        key := "rate_limit:" + ip
+
+                        allowed, err := r.redis.SetRateLimit(key, r.limit, time.Duration(r.window)*time.Second)
+                        if err != nil </span><span class="cov0" title="0">{
+                                return c.JSON(http.StatusInternalServerError, map[string]string{
+                                        "error": "rate limit check failed",
+                                })
+                        }</span>
+
+                        <span class="cov0" title="0">if !allowed </span><span class="cov0" title="0">{
+                                return c.JSON(http.StatusTooManyRequests, map[string]string{
+                                        "error": "too many requests",
+                                })
+                        }</span>
+
+                        <span class="cov0" title="0">return next(c)</span>
+                }
+        }
+}
+</pre>
+		
+		<pre class="file" id="file5" style="display: none">package auth
+
+import (
+        "github.com/labstack/echo/v4"
+)
+
+func RegisterRoutes(e *echo.Echo, handler *AuthHandler, authMiddleware *AuthMiddleware) <span class="cov0" title="0">{
+        auth := e.Group("/auth")
+
+        auth.POST("/register", handler.Register)
+        auth.POST("/login", handler.Login)
+        auth.POST("/logout", handler.Logout)
+
+        // Protected routes
+        protected := e.Group("")
+        protected.Use(authMiddleware.Middleware())
+        protected.GET("/profile", handler.GetProfile)
+}</span>
+</pre>
+		
+		<pre class="file" id="file6" style="display: none">package auth
+
+import (
+        "context"
+        "errors"
+        "fmt"
+        "log"
+        "time"
+
+        "github.com/ffreville/mmo-team-test/server/internal/database"
+        "github.com/ffreville/mmo-team-test/server/pkg/models"
+        "github.com/golang-jwt/jwt/v5"
+        "golang.org/x/crypto/bcrypt"
+)
+
+type Claims struct {
+        UserID   string `json:"user_id"`
+        Username string `json:"username"`
+        jwt.RegisteredClaims
+}
+
+type AuthService struct {
+        db         *database.PostgresDB
+        redis      *database.RedisClient
+        jwtSecret  []byte
+        bcryptCost int
+}
+
+func NewAuthService(db *database.PostgresDB, redis *database.RedisClient, jwtSecret string, bcryptCost int) *AuthService <span class="cov0" title="0">{
+        return &amp;AuthService{
+                db:         db,
+                redis:      redis,
+                jwtSecret:  []byte(jwtSecret),
+                bcryptCost: bcryptCost,
+        }
+}</span>
+
+func (s *AuthService) Register(username, email, password string) (*models.User, error) <span class="cov0" title="0">{
+        ctx := context.Background()
+
+        // Check if user already exists
+        var existingUser models.User
+        err := s.db.Pool().QueryRow(ctx,
+                "SELECT user_id, username, email FROM users WHERE username = $1 OR email = $2",
+                username, email).Scan(&amp;existingUser.UserID, &amp;existingUser.Username, &amp;existingUser.Email)
+
+        if err == nil </span><span class="cov0" title="0">{
+                return nil, errors.New("username or email already exists")
+        }</span>
+
+        // Hash password
+        <span class="cov0" title="0">passwordHash, err := bcrypt.GenerateFromPassword([]byte(password), s.bcryptCost)
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, fmt.Errorf("failed to hash password: %w", err)
+        }</span>
+
+        // Create user
+        <span class="cov0" title="0">userID := ""
+        err = s.db.Pool().QueryRow(ctx,
+                "INSERT INTO users (username, email, password_hash) VALUES ($1, $2, $3) RETURNING user_id",
+                username, email, string(passwordHash)).Scan(&amp;userID)
+
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, fmt.Errorf("failed to create user: %w", err)
+        }</span>
+
+        <span class="cov0" title="0">return &amp;models.User{
+                UserID:       userID,
+                Username:     username,
+                Email:        email,
+                PasswordHash: string(passwordHash),
+                CreatedAt:    time.Now(),
+        }, nil</span>
+}
+
+func (s *AuthService) Login(username, password string) (string, error) <span class="cov0" title="0">{
+        ctx := context.Background()
+
+        var user models.User
+        err := s.db.Pool().QueryRow(ctx,
+                "SELECT user_id, username, email, password_hash, is_banned FROM users WHERE username = $1",
+                username).Scan(&amp;user.UserID, &amp;user.Username, &amp;user.Email, &amp;user.PasswordHash, &amp;user.IsBanned)
+
+        if err != nil </span><span class="cov0" title="0">{
+                return "", errors.New("invalid credentials")
+        }</span>
+
+        <span class="cov0" title="0">if user.IsBanned </span><span class="cov0" title="0">{
+                return "", errors.New("user is banned")
+        }</span>
+
+        // Verify password
+        <span class="cov0" title="0">if err := bcrypt.CompareHashAndPassword([]byte(user.PasswordHash), []byte(password)); err != nil </span><span class="cov0" title="0">{
+                return "", errors.New("invalid credentials")
+        }</span>
+
+        // Generate JWT token
+        <span class="cov0" title="0">token, err := s.generateToken(&amp;user)
+        if err != nil </span><span class="cov0" title="0">{
+                return "", fmt.Errorf("failed to generate token: %w", err)
+        }</span>
+
+        // Update last login
+        <span class="cov0" title="0">_, err = s.db.Pool().Exec(ctx,
+                "UPDATE users SET last_login = $1 WHERE user_id = $2",
+                time.Now(), user.UserID)
+        if err != nil </span><span class="cov0" title="0">{
+                log.Printf("Failed to update last login: %v", err)
+        }</span>
+
+        // Store session in Redis
+        <span class="cov0" title="0">expiry := 24 * time.Hour
+        if err := s.redis.SetSession(user.UserID, token, expiry); err != nil </span><span class="cov0" title="0">{
+                log.Printf("Failed to store session: %v", err)
+        }</span>
+
+        <span class="cov0" title="0">return token, nil</span>
+}
+
+func (s *AuthService) ValidateToken(tokenString string) (*Claims, error) <span class="cov0" title="0">{
+        token, err := jwt.ParseWithClaims(tokenString, &amp;Claims{}, func(token *jwt.Token) (interface{}, error) </span><span class="cov0" title="0">{
+                return s.jwtSecret, nil
+        }</span>)
+
+        <span class="cov0" title="0">if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+
+        <span class="cov0" title="0">if claims, ok := token.Claims.(*Claims); ok &amp;&amp; token.Valid </span><span class="cov0" title="0">{
+                // Verify session still exists in Redis
+                storedToken, err := s.redis.GetSession(claims.UserID)
+                if err != nil || storedToken != tokenString </span><span class="cov0" title="0">{
+                        return nil, errors.New("session expired or invalid")
+                }</span>
+                <span class="cov0" title="0">return claims, nil</span>
+        }
+
+        <span class="cov0" title="0">return nil, errors.New("invalid token")</span>
+}
+
+func (s *AuthService) Logout(tokenString string) error <span class="cov0" title="0">{
+        claims, err := s.ValidateToken(tokenString)
+        if err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+
+        <span class="cov0" title="0">return s.redis.DeleteSession(claims.UserID)</span>
+}
+
+func (s *AuthService) generateToken(user *models.User) (string, error) <span class="cov8" title="1">{
+        claims := Claims{
+                UserID:   user.UserID,
+                Username: user.Username,
+                RegisteredClaims: jwt.RegisteredClaims{
+                        ExpiresAt: jwt.NewNumericDate(time.Now().Add(24 * time.Hour)),
+                        IssuedAt:  jwt.NewNumericDate(time.Now()),
+                        Issuer:    "mmo-auth-server",
+                },
+        }
+
+        token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+        return token.SignedString(s.jwtSecret)
+}</span>
+</pre>
+		
+		<pre class="file" id="file7" style="display: none">package config
+
+import (
+        "time"
+
+        "github.com/spf13/viper"
+)
+
+type Config struct {
+        Server       ServerConfig
+        Database     DatabaseConfig
+        Redis        RedisConfig
+        Auth         AuthConfig
+        ServerLimits ServerLimits
+        Movement     MovementConfig
+        BuildVersion string `mapstructure:"-"`
+        BuildCommit  string `mapstructure:"-"`
+}
+
+type ServerConfig struct {
+        Host         string
+        Port         int
+        ReadTimeout  time.Duration
+        WriteTimeout time.Duration
+}
+
+type DatabaseConfig struct {
+        Host            string
+        Port            int
+        User            string
+        Password        string
+        Name            string
+        MaxOpenConns    int
+        MaxIdleConns    int
+        ConnMaxLifetime time.Duration
+}
+
+type RedisConfig struct {
+        Host     string
+        Port     int
+        DB       int
+        Password string
+}
+
+type AuthConfig struct {
+        JWTSecret  string
+        JWTExpiry  time.Duration
+        BcryptCost int
+}
+
+type ServerLimits struct {
+        MaxPlayersPerZone      int
+        MaxCharactersPerUser   int
+        MaxUsernameLength      int
+        MaxCharacterNameLength int
+}
+
+type MovementConfig struct {
+        MaxSpeed                float64
+        PositionSyncInterval    time.Duration
+        AntiCheatSpeedThreshold float64
+}
+
+func Load(configPath string) (*Config, error) <span class="cov0" title="0">{
+        viper.SetConfigFile(configPath)
+        viper.SetConfigType("yaml")
+
+        if err := viper.ReadInConfig(); err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+
+        <span class="cov0" title="0">var cfg Config
+        if err := viper.Unmarshal(&amp;cfg); err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+
+        <span class="cov0" title="0">return &amp;cfg, nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file8" style="display: none">package database
+
+import (
+        "context"
+        "fmt"
+        "log"
+        "time"
+
+        "github.com/jackc/pgx/v5/pgxpool"
+)
+
+type PostgresDB struct {
+        pool *pgxpool.Pool
+}
+
+func NewPostgresDB(host string, port int, user string, password string, dbname string, maxOpenConns int, maxIdleConns int, connMaxLifetime time.Duration) (*PostgresDB, error) <span class="cov0" title="0">{
+        connString := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
+                host, port, user, password, dbname)
+
+        config, err := pgxpool.ParseConfig(connString)
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, fmt.Errorf("unable to parse connection string: %w", err)
+        }</span>
+
+        <span class="cov0" title="0">config.MaxConns = int32(maxOpenConns)
+        config.MinConns = int32(maxIdleConns)
+        config.MaxConnLifetime = connMaxLifetime
+
+        pool, err := pgxpool.NewWithConfig(context.Background(), config)
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, fmt.Errorf("unable to create connection pool: %w", err)
+        }</span>
+
+        // Test connection
+        <span class="cov0" title="0">ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+        defer cancel()
+
+        if err := pool.Ping(ctx); err != nil </span><span class="cov0" title="0">{
+                return nil, fmt.Errorf("unable to ping database: %w", err)
+        }</span>
+
+        <span class="cov0" title="0">log.Println("Database connection established successfully")
+
+        return &amp;PostgresDB{pool: pool}, nil</span>
+}
+
+func (db *PostgresDB) Close() <span class="cov0" title="0">{
+        db.pool.Close()
+        log.Println("Database connection closed")
+}</span>
+
+func (db *PostgresDB) Pool() *pgxpool.Pool <span class="cov0" title="0">{
+        return db.pool
+}</span>
+</pre>
+		
+		<pre class="file" id="file9" style="display: none">package database
+
+import (
+        "context"
+        "fmt"
+        "log"
+        "time"
+
+        "github.com/redis/go-redis/v9"
+)
+
+type RedisClient struct {
+        client *redis.Client
+        ctx    context.Context
+}
+
+func NewRedisClient(host string, port int, db int, password string) (*RedisClient, error) <span class="cov0" title="0">{
+        client := redis.NewClient(&amp;redis.Options{
+                Addr:     fmt.Sprintf("%s:%d", host, port),
+                Password: password,
+                DB:       db,
+        })
+
+        ctx := context.Background()
+
+        // Test connection
+        if err := client.Ping(ctx).Err(); err != nil </span><span class="cov0" title="0">{
+                return nil, fmt.Errorf("unable to ping redis: %w", err)
+        }</span>
+
+        <span class="cov0" title="0">log.Println("Redis connection established successfully")
+
+        return &amp;RedisClient{client: client, ctx: ctx}, nil</span>
+}
+
+func (r *RedisClient) Close() <span class="cov0" title="0">{
+        r.client.Close()
+        log.Println("Redis connection closed")
+}</span>
+
+func (r *RedisClient) Client() *redis.Client <span class="cov0" title="0">{
+        return r.client
+}</span>
+
+func (r *RedisClient) SetSession(userID string, token string, expiry time.Duration) error <span class="cov0" title="0">{
+        key := fmt.Sprintf("session:%s", userID)
+        return r.client.Set(r.ctx, key, token, expiry).Err()
+}</span>
+
+func (r *RedisClient) GetSession(userID string) (string, error) <span class="cov0" title="0">{
+        key := fmt.Sprintf("session:%s", userID)
+        return r.client.Get(r.ctx, key).Result()
+}</span>
+
+func (r *RedisClient) DeleteSession(userID string) error <span class="cov0" title="0">{
+        key := fmt.Sprintf("session:%s", userID)
+        return r.client.Del(r.ctx, key).Err()
+}</span>
+
+func (r *RedisClient) SetRateLimit(key string, limit int, window time.Duration) (bool, error) <span class="cov0" title="0">{
+        current, err := r.client.Incr(r.ctx, key).Result()
+        if err != nil </span><span class="cov0" title="0">{
+                return false, err
+        }</span>
+
+        <span class="cov0" title="0">if current == 1 </span><span class="cov0" title="0">{
+                if err := r.client.Expire(r.ctx, key, window).Err(); err != nil </span><span class="cov0" title="0">{
+                        return false, err
+                }</span>
+        }
+
+        <span class="cov0" title="0">return current &lt;= int64(limit), nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file10" style="display: none">package world
+
+import (
+        "errors"
+        "fmt"
+        "sync"
+        "time"
+
+        "github.com/ffreville/mmo-team-test/server/pkg/models"
+        "github.com/google/uuid"
+)
+
+type World struct {
+        players   map[string]*Player
+        playersMu sync.RWMutex
+
+        characters   map[string]*models.Character
+        charactersMu sync.RWMutex
+
+        zones  map[string]*Zone
+        bounds Bounds
+}
+
+type Player struct {
+        ID          string
+        UserID      string
+        Username    string
+        CharacterID string
+        Position    Vector3
+        Orientation float64
+        IsMoving    bool
+        LastUpdate  time.Time
+        ZoneID      string
+}
+
+type Vector3 struct {
+        X float64
+        Y float64
+        Z float64
+}
+
+type Bounds struct {
+        MinX float64
+        MaxX float64
+        MinY float64
+        MaxY float64
+        MinZ float64
+        MaxZ float64
+}
+
+type Zone struct {
+        ID      string
+        Players map[string]*Player
+        Bounds  Bounds
+}
+
+func NewWorld() *World <span class="cov0" title="0">{
+        return &amp;World{
+                players:    make(map[string]*Player),
+                characters: make(map[string]*models.Character),
+                zones: map[string]*Zone{
+                        "starter_zone": {
+                                ID:      "starter_zone",
+                                Players: make(map[string]*Player),
+                                Bounds: Bounds{
+                                        MinX: -100, MaxX: 100,
+                                        MinY: -100, MaxY: 100,
+                                        MinZ: -100, MaxZ: 100,
+                                },
+                        },
+                },
+                bounds: Bounds{
+                        MinX: -100, MaxX: 100,
+                        MinY: -100, MaxY: 100,
+                        MinZ: -100, MaxZ: 100,
+                },
+        }
+}</span>
+
+func (w *World) CreateCharacter(userID, name, classType string) (*models.Character, error) <span class="cov0" title="0">{
+        if name == "" </span><span class="cov0" title="0">{
+                return nil, errors.New("character name is required")
+        }</span>
+
+        <span class="cov0" title="0">if len(name) &gt; 50 </span><span class="cov0" title="0">{
+                return nil, errors.New("character name too long (max 50 characters)")
+        }</span>
+
+        <span class="cov0" title="0">validClasses := map[string]bool{
+                "warrior": true,
+                "rogue":   true,
+                "mage":    true,
+        }
+
+        if !validClasses[classType] </span><span class="cov0" title="0">{
+                return nil, fmt.Errorf("invalid class type: %s", classType)
+        }</span>
+
+        <span class="cov0" title="0">w.charactersMu.Lock()
+        defer w.charactersMu.Unlock()
+
+        characterID := uuid.New().String()
+
+        character := &amp;models.Character{
+                CharacterID: characterID,
+                UserID:      userID,
+                Name:        name,
+                ClassType:   classType,
+                Level:       1,
+                Exp:         0,
+                CurrentZone: "starter_zone",
+                PositionX:   0,
+                PositionY:   0,
+                PositionZ:   0,
+                Orientation: 0,
+                IsOnline:    false,
+                CreatedAt:   time.Now(),
+        }
+
+        w.characters[characterID] = character
+
+        player := &amp;Player{
+                ID:          characterID,
+                UserID:      userID,
+                CharacterID: characterID,
+                Username:    name,
+                Position:    Vector3{X: 0, Y: 0, Z: 0},
+                ZoneID:      "starter_zone",
+                LastUpdate:  time.Now(),
+        }
+
+        w.players[userID] = player
+        w.zones["starter_zone"].Players[characterID] = player
+
+        return character, nil</span>
+}
+
+func (w *World) ListCharacters(userID string) []*models.Character <span class="cov0" title="0">{
+        w.charactersMu.RLock()
+        defer w.charactersMu.RUnlock()
+
+        var characters []*models.Character
+        for _, char := range w.characters </span><span class="cov0" title="0">{
+                if char.UserID == userID </span><span class="cov0" title="0">{
+                        characters = append(characters, char)
+                }</span>
+        }
+
+        <span class="cov0" title="0">return characters</span>
+}
+
+func (w *World) MovePlayer(userID string, targetX, targetY, targetZ float64) error <span class="cov0" title="0">{
+        w.playersMu.RLock()
+        player, ok := w.players[userID]
+        w.playersMu.RUnlock()
+
+        if !ok </span><span class="cov0" title="0">{
+                return errors.New("player not found")
+        }</span>
+
+        <span class="cov0" title="0">if err := w.ValidateMove(player, targetX, targetY, targetZ); err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+
+        <span class="cov0" title="0">w.playersMu.Lock()
+        player.Position.X = targetX
+        player.Position.Y = targetY
+        player.Position.Z = targetZ
+        player.IsMoving = false
+        player.LastUpdate = time.Now()
+        w.playersMu.Unlock()
+
+        return nil</span>
+}
+
+func (w *World) ValidateMove(player *Player, targetX, targetY, targetZ float64) error <span class="cov0" title="0">{
+        zone, ok := w.zones[player.ZoneID]
+        if !ok </span><span class="cov0" title="0">{
+                return errors.New("player zone not found")
+        }</span>
+
+        <span class="cov0" title="0">if targetX &lt; zone.Bounds.MinX || targetX &gt; zone.Bounds.MaxX </span><span class="cov0" title="0">{
+                return errors.New("position out of bounds (X)")
+        }</span>
+
+        <span class="cov0" title="0">if targetY &lt; zone.Bounds.MinY || targetY &gt; zone.Bounds.MaxY </span><span class="cov0" title="0">{
+                return errors.New("position out of bounds (Y)")
+        }</span>
+
+        <span class="cov0" title="0">if targetZ &lt; zone.Bounds.MinZ || targetZ &gt; zone.Bounds.MaxZ </span><span class="cov0" title="0">{
+                return errors.New("position out of bounds (Z)")
+        }</span>
+
+        <span class="cov0" title="0">distance := player.Position.DistanceTo(targetX, targetY, targetZ)
+        maxDistance := 10.0
+
+        if distance &gt; maxDistance </span><span class="cov0" title="0">{
+                return fmt.Errorf("movement too fast (distance: %.2f, max: %.2f)", distance, maxDistance)
+        }</span>
+
+        <span class="cov0" title="0">return nil</span>
+}
+
+func (w *World) GetPlayerPosition(userID string) Vector3 <span class="cov0" title="0">{
+        w.playersMu.RLock()
+        defer w.playersMu.RUnlock()
+
+        if player, ok := w.players[userID]; ok </span><span class="cov0" title="0">{
+                return player.Position
+        }</span>
+
+        <span class="cov0" title="0">return Vector3{X: 0, Y: 0, Z: 0}</span>
+}
+
+func (w *World) GetPlayer(userID string) *Player <span class="cov0" title="0">{
+        w.playersMu.RLock()
+        defer w.playersMu.RUnlock()
+        return w.players[userID]
+}</span>
+
+func (w *World) GetZone(zoneID string) *Zone <span class="cov0" title="0">{
+        return w.zones[zoneID]
+}</span>
+
+func (v Vector3) DistanceTo(x, y, z float64) float64 <span class="cov0" title="0">{
+        dx := v.X - x
+        dy := v.Y - y
+        dz := v.Z - z
+        return dx*dx + dy*dy + dz*dz
+}</span>
+</pre>
+		
+		<pre class="file" id="file11" style="display: none">package network
+
+import (
+        "encoding/json"
+        "log"
+        "net/http"
+        "sync"
+        "time"
+
+        "github.com/ffreville/mmo-team-test/server/internal/auth"
+        "github.com/ffreville/mmo-team-test/server/internal/database"
+        "github.com/ffreville/mmo-team-test/server/internal/game/world"
+        "github.com/gorilla/websocket"
+)
+
+const (
+        WriteWait      = 10 * time.Second
+        PongWait       = 60 * time.Second
+        PingPeriod     = (PongWait * 9) / 10
+        MaxMessageSize = 512
+)
+
+type Gateway struct {
+        clients   map[string]*Client
+        clientsMu sync.RWMutex
+        auth      *auth.AuthService
+        world     *world.World
+        redis     *database.RedisClient
+        upgrader  websocket.Upgrader
+}
+
+type Client struct {
+        conn        *websocket.Conn
+        gateway     *Gateway
+        userID      string
+        username    string
+        characterID string
+        send        chan []byte
+}
+
+type Message struct {
+        Type    string      `json:"type"`
+        Payload interface{} `json:"payload"`
+}
+
+type AuthPayload struct {
+        Token string `json:"token"`
+}
+
+type MovePayload struct {
+        Timestamp int64   `json:"timestamp"`
+        TargetX   float64 `json:"target_x"`
+        TargetY   float64 `json:"target_y"`
+        TargetZ   float64 `json:"target_z"`
+}
+
+func NewGateway(authService *auth.AuthService, gameWorld *world.World, redis *database.RedisClient) *Gateway <span class="cov0" title="0">{
+        return &amp;Gateway{
+                clients: make(map[string]*Client),
+                auth:    authService,
+                world:   gameWorld,
+                redis:   redis,
+                upgrader: websocket.Upgrader{
+                        ReadBufferSize:  1024,
+                        WriteBufferSize: 1024,
+                        CheckOrigin:     func(r *http.Request) bool </span><span class="cov0" title="0">{ return true }</span>,
+                },
+        }
+}
+
+func (g *Gateway) HandleConnection(conn *websocket.Conn) <span class="cov0" title="0">{
+        client := &amp;Client{
+                conn:    conn,
+                gateway: g,
+                send:    make(chan []byte, 256),
+        }
+
+        go client.writePump()
+        go client.readPump()
+}</span>
+
+func (c *Client) readPump() <span class="cov0" title="0">{
+        defer func() </span><span class="cov0" title="0">{
+                c.gateway.unregister(c)
+                c.conn.Close()
+        }</span>()
+
+        <span class="cov0" title="0">c.conn.SetReadLimit(MaxMessageSize)
+        c.conn.SetReadDeadline(time.Now().Add(PongWait))
+        c.conn.SetPongHandler(func(string) error </span><span class="cov0" title="0">{
+                c.conn.SetReadDeadline(time.Now().Add(PongWait))
+                return nil
+        }</span>)
+
+        <span class="cov0" title="0">for </span><span class="cov0" title="0">{
+                _, message, err := c.conn.ReadMessage()
+                if err != nil </span><span class="cov0" title="0">{
+                        if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure) </span><span class="cov0" title="0">{
+                                log.Printf("WebSocket error: %v", err)
+                        }</span>
+                        <span class="cov0" title="0">break</span>
+                }
+
+                <span class="cov0" title="0">c.gateway.handleMessage(c, message)</span>
+        }
+}
+
+func (c *Client) writePump() <span class="cov0" title="0">{
+        ticker := time.NewTicker(PingPeriod)
+        defer func() </span><span class="cov0" title="0">{
+                ticker.Stop()
+                c.conn.Close()
+        }</span>()
+
+        <span class="cov0" title="0">for </span><span class="cov0" title="0">{
+                select </span>{
+                case message, ok := &lt;-c.send:<span class="cov0" title="0">
+                        c.conn.SetWriteDeadline(time.Now().Add(WriteWait))
+                        if !ok </span><span class="cov0" title="0">{
+                                c.conn.WriteMessage(websocket.CloseMessage, []byte{})
+                                return
+                        }</span>
+
+                        <span class="cov0" title="0">w, err := c.conn.NextWriter(websocket.TextMessage)
+                        if err != nil </span><span class="cov0" title="0">{
+                                return
+                        }</span>
+                        <span class="cov0" title="0">w.Write(message)
+
+                        if err := w.Close(); err != nil </span><span class="cov0" title="0">{
+                                return
+                        }</span>
+                case &lt;-ticker.C:<span class="cov0" title="0">
+                        c.conn.SetWriteDeadline(time.Now().Add(WriteWait))
+                        if err := c.conn.WriteMessage(websocket.PingMessage, nil); err != nil </span><span class="cov0" title="0">{
+                                return
+                        }</span>
+                }
+        }
+}
+
+func (g *Gateway) handleMessage(client *Client, message []byte) <span class="cov0" title="0">{
+        var msg Message
+        if err := json.Unmarshal(message, &amp;msg); err != nil </span><span class="cov0" title="0">{
+                log.Printf("Failed to unmarshal message: %v", err)
+                return
+        }</span>
+
+        <span class="cov0" title="0">switch msg.Type </span>{
+        case "auth":<span class="cov0" title="0">
+                g.handleAuth(client, msg)</span>
+        case "move_command":<span class="cov0" title="0">
+                g.handleMove(client, msg)</span>
+        case "character_create":<span class="cov0" title="0">
+                g.handleCharacterCreate(client, msg)</span>
+        case "character_list":<span class="cov0" title="0">
+                g.handleCharacterList(client, msg)</span>
+        default:<span class="cov0" title="0">
+                log.Printf("Unknown message type: %s", msg.Type)</span>
+        }
+}
+
+func (g *Gateway) handleAuth(client *Client, msg Message) <span class="cov0" title="0">{
+        payload, ok := msg.Payload.(map[string]interface{})
+        if !ok </span><span class="cov0" title="0">{
+                g.sendError(client, "invalid payload")
+                return
+        }</span>
+
+        <span class="cov0" title="0">token, ok := payload["token"].(string)
+        if !ok </span><span class="cov0" title="0">{
+                g.sendError(client, "missing token")
+                return
+        }</span>
+
+        <span class="cov0" title="0">claims, err := g.auth.ValidateToken(token)
+        if err != nil </span><span class="cov0" title="0">{
+                g.sendError(client, "invalid token")
+                return
+        }</span>
+
+        <span class="cov0" title="0">client.userID = claims.UserID
+        client.username = claims.Username
+
+        g.register(client)
+
+        g.sendMessage(client, "auth_response", map[string]interface{}{
+                "success":   true,
+                "player_id": claims.UserID,
+                "message":   "Authenticated successfully",
+                "username":  claims.Username,
+        })</span>
+}
+
+func (g *Gateway) handleMove(client *Client, msg Message) <span class="cov0" title="0">{
+        if client.userID == "" </span><span class="cov0" title="0">{
+                g.sendError(client, "not authenticated")
+                return
+        }</span>
+
+        <span class="cov0" title="0">payload, ok := msg.Payload.(map[string]interface{})
+        if !ok </span><span class="cov0" title="0">{
+                g.sendError(client, "invalid payload")
+                return
+        }</span>
+
+        <span class="cov0" title="0">timestamp := int64(0)
+        if t, ok := payload["timestamp"].(float64); ok </span><span class="cov0" title="0">{
+                timestamp = int64(t)
+        }</span>
+
+        <span class="cov0" title="0">targetX := 0.0
+        if x, ok := payload["target_x"].(float64); ok </span><span class="cov0" title="0">{
+                targetX = x
+        }</span>
+
+        <span class="cov0" title="0">targetY := 0.0
+        if y, ok := payload["target_y"].(float64); ok </span><span class="cov0" title="0">{
+                targetY = y
+        }</span>
+
+        <span class="cov0" title="0">targetZ := 0.0
+        if z, ok := payload["target_z"].(float64); ok </span><span class="cov0" title="0">{
+                targetZ = z
+        }</span>
+
+        <span class="cov0" title="0">err := g.world.MovePlayer(client.userID, targetX, targetY, targetZ)
+        if err != nil </span><span class="cov0" title="0">{
+                g.sendError(client, err.Error())
+                return
+        }</span>
+
+        <span class="cov0" title="0">pos := g.world.GetPlayerPosition(client.userID)
+
+        g.sendMessage(client, "move_response", map[string]interface{}{
+                "success":   true,
+                "server_x":  pos.X,
+                "server_y":  pos.Y,
+                "server_z":  pos.Z,
+                "timestamp": timestamp,
+        })
+
+        g.broadcastToZone(client, "player_moved", map[string]interface{}{
+                "player_id": client.userID,
+                "x":         pos.X,
+                "y":         pos.Y,
+                "z":         pos.Z,
+        })</span>
+}
+
+func (g *Gateway) handleCharacterCreate(client *Client, msg Message) <span class="cov0" title="0">{
+        if client.userID == "" </span><span class="cov0" title="0">{
+                g.sendError(client, "not authenticated")
+                return
+        }</span>
+
+        <span class="cov0" title="0">payload, ok := msg.Payload.(map[string]interface{})
+        if !ok </span><span class="cov0" title="0">{
+                g.sendError(client, "invalid payload")
+                return
+        }</span>
+
+        <span class="cov0" title="0">name := ""
+        if n, ok := payload["name"].(string); ok </span><span class="cov0" title="0">{
+                name = n
+        }</span>
+
+        <span class="cov0" title="0">classType := "warrior"
+        if c, ok := payload["class_type"].(string); ok </span><span class="cov0" title="0">{
+                classType = c
+        }</span>
+
+        <span class="cov0" title="0">character, err := g.world.CreateCharacter(client.userID, name, classType)
+        if err != nil </span><span class="cov0" title="0">{
+                g.sendError(client, err.Error())
+                return
+        }</span>
+
+        <span class="cov0" title="0">client.characterID = character.CharacterID
+
+        g.sendMessage(client, "character_create_response", map[string]interface{}{
+                "success": true,
+                "character": map[string]interface{}{
+                        "character_id": character.CharacterID,
+                        "name":         character.Name,
+                        "class_type":   character.ClassType,
+                        "level":        character.Level,
+                        "position_x":   character.PositionX,
+                        "position_y":   character.PositionY,
+                        "position_z":   character.PositionZ,
+                },
+                "message": "Character created successfully",
+        })</span>
+}
+
+func (g *Gateway) handleCharacterList(client *Client, msg Message) <span class="cov0" title="0">{
+        if client.userID == "" </span><span class="cov0" title="0">{
+                g.sendError(client, "not authenticated")
+                return
+        }</span>
+
+        <span class="cov0" title="0">characters := g.world.ListCharacters(client.userID)
+
+        charactersData := make([]map[string]interface{}, len(characters))
+        for i, char := range characters </span><span class="cov0" title="0">{
+                charactersData[i] = map[string]interface{}{
+                        "character_id": char.CharacterID,
+                        "name":         char.Name,
+                        "class_type":   char.ClassType,
+                        "level":        char.Level,
+                        "position_x":   char.PositionX,
+                        "position_y":   char.PositionY,
+                        "position_z":   char.PositionZ,
+                }
+        }</span>
+
+        <span class="cov0" title="0">g.sendMessage(client, "character_list_response", map[string]interface{}{
+                "success":    true,
+                "characters": charactersData,
+        })</span>
+}
+
+func (g *Gateway) register(client *Client) <span class="cov0" title="0">{
+        g.clientsMu.Lock()
+        defer g.clientsMu.Unlock()
+        g.clients[client.userID] = client
+        log.Printf("Client connected: %s", client.username)
+}</span>
+
+func (g *Gateway) unregister(client *Client) <span class="cov0" title="0">{
+        g.clientsMu.Lock()
+        defer g.clientsMu.Unlock()
+        if _, ok := g.clients[client.userID]; ok </span><span class="cov0" title="0">{
+                delete(g.clients, client.userID)
+                close(client.send)
+                log.Printf("Client disconnected: %s", client.username)
+        }</span>
+}
+
+func (g *Gateway) sendMessage(client *Client, msgType string, payload interface{}) <span class="cov0" title="0">{
+        message := Message{
+                Type:    msgType,
+                Payload: payload,
+        }
+
+        data, err := json.Marshal(message)
+        if err != nil </span><span class="cov0" title="0">{
+                log.Printf("Failed to marshal message: %v", err)
+                return
+        }</span>
+
+        <span class="cov0" title="0">select </span>{
+        case client.send &lt;- data:<span class="cov0" title="0"></span>
+        default:<span class="cov0" title="0">
+                log.Printf("Client send buffer full")</span>
+        }
+}
+
+func (g *Gateway) sendError(client *Client, message string) <span class="cov0" title="0">{
+        g.sendMessage(client, "error", map[string]interface{}{
+                "message": message,
+        })
+}</span>
+
+func (g *Gateway) broadcastToZone(exclude *Client, msgType string, payload interface{}) <span class="cov0" title="0">{
+        g.clientsMu.RLock()
+        defer g.clientsMu.RUnlock()
+
+        for _, client := range g.clients </span><span class="cov0" title="0">{
+                if client.userID != exclude.userID </span><span class="cov0" title="0">{
+                        g.sendMessage(client, msgType, payload)
+                }</span>
+        }
+}
+
+func (g *Gateway) GetClient(userID string) *Client <span class="cov0" title="0">{
+        g.clientsMu.RLock()
+        defer g.clientsMu.RUnlock()
+        return g.clients[userID]
+}</span>
+</pre>
+		
+		</div>
+	</body>
+	<script>
+	(function() {
+		var files = document.getElementById('files');
+		var visible;
+		files.addEventListener('change', onChange, false);
+		function select(part) {
+			if (visible)
+				visible.style.display = 'none';
+			visible = document.getElementById(part);
+			if (!visible)
+				return;
+			files.value = part;
+			visible.style.display = 'block';
+			location.hash = part;
+		}
+		function onChange() {
+			select(files.value);
+			window.scrollTo(0, 0);
+		}
+		if (location.hash != "") {
+			select(location.hash.substr(1));
+		}
+		if (!visible) {
+			select("file0");
+		}
+	})();
+	</script>
+</html>

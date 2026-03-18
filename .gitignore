@@ -1,0 +1,5 @@
+
+server/mmo-gateway
+
+server/bin/*
+bin/*

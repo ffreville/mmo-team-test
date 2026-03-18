@@ -1,0 +1,116 @@
+[gd_scene load_steps=2 format=3 uid="uid://auth_menu_001"]
+
+[ext_resource type="Script" path="res://scenes/ui/menus/AuthMenu.gd" id="1_script"]
+
+[node name="AuthMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.1, 0.1, 0.15, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -180.0
+offset_right = 150.0
+offset_bottom = 180.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Title" type="Label" parent="VBoxContainer"]
+layout_mode = 1
+theme_override_colors/font_color = Color(0.9, 0.7, 0.3, 1)
+theme_override_font_sizes/font_size = 28
+text = "MMO Fantasy"
+horizontal_alignment = 1
+
+[node name="Spacer1" type="Control" parent="VBoxContainer"]
+layout_mode = 1
+size_flags_vertical = 1
+
+[node name="AuthModeLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 1
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_font_sizes/font_size = 16
+text = "Mode: Login"
+horizontal_alignment = 1
+
+[node name="UsernameLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 1
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_font_sizes/font_size = 14
+text = "Username:"
+
+[node name="UsernameInput" type="LineEdit" parent="VBoxContainer"]
+layout_mode = 1
+placeholder_text = "Enter username"
+clear_button_enabled = true
+
+[node name="PasswordLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 1
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_font_sizes/font_size = 14
+text = "Password:"
+
+[node name="PasswordInput" type="LineEdit" parent="VBoxContainer"]
+layout_mode = 1
+placeholder_text = "Enter password"
+clear_button_enabled = true
+secret = true
+
+[node name="EmailLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 1
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_font_sizes/font_size = 14
+text = "Email:"
+visible = false
+
+[node name="EmailInput" type="LineEdit" parent="VBoxContainer"]
+layout_mode = 1
+placeholder_text = "Enter email"
+clear_button_enabled = true
+visible = false
+
+[node name="Spacer2" type="Control" parent="VBoxContainer"]
+layout_mode = 1
+size_flags_vertical = 1
+
+[node name="ActionButtons" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 1
+theme_override_constants/separation = 20
+horizontal_alignment = 1
+
+[node name="ActionButton" type="Button" parent="VBoxContainer/ActionButtons"]
+layout_mode = 1
+text = "Login"
+theme_override_font_sizes/font_size = 16
+
+[node name="ToggleModeButton" type="Button" parent="VBoxContainer/ActionButtons"]
+layout_mode = 1
+text = "Go to Register"
+theme_override_font_sizes/font_size = 14
+
+[node name="StatusLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 1
+theme_override_colors/font_color = Color(1, 0.3, 0.3, 1)
+theme_override_font_sizes/font_size = 14
+text = ""
+horizontal_alignment = 1

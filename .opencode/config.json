@@ -1,0 +1,117 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "agent": {
+    "ceo": {
+      "description": "CEO - Définit la vision, la roadmap et les décisions stratégiques",
+      "mode": "subagent",
+      "model": "dgx-spark/Qwen/Qwen3.5-122B-A10B-FP8",
+      "temperature": 0.3,
+      "tools": {
+        "write": true,
+        "edit": true,
+        "bash": false
+      },
+      "permission": {
+        "edit": "ask",
+        "bash": "deny"
+      },
+      "color": "#FF6B6B"
+    },
+    "cto": {
+      "description": "CTO - Architecture technique et choix technologiques",
+      "mode": "subagent",
+      "model": "dgx-spark/Qwen/Qwen3.5-122B-A10B-FP8",
+      "temperature": 0.2,
+      "tools": {
+        "write": true,
+        "edit": true,
+        "bash": false
+      },
+      "permission": {
+        "edit": "ask",
+        "bash": "deny"
+      },
+      "color": "#4ECDC4"
+    },
+    "dev-team": {
+      "description": "Dev Team - Implémentation client (Godot) et serveur (Go)",
+      "mode": "subagent",
+      "model": "dgx-spark/Qwen/Qwen3.5-122B-A10B-FP8",
+      "temperature": 0.4,
+      "tools": {
+        "write": true,
+        "edit": true,
+        "bash": true
+      },
+      "permission": {
+        "edit": "ask",
+        "bash": "ask"
+      },
+      "color": "#95E1D3"
+    },
+    "qa-team": {
+      "description": "QA Team - Tests et assurance qualité",
+      "mode": "subagent",
+      "model": "dgx-spark/Qwen/Qwen3.5-122B-A10B-FP8",
+      "temperature": 0.3,
+      "tools": {
+        "write": true,
+        "edit": true,
+        "bash": true
+      },
+      "permission": {
+        "edit": "ask",
+        "bash": "ask"
+      },
+      "color": "#F38181"
+    },
+    "secu-team": {
+      "description": "Secu Team - Sécurité serveur et anti-cheat",
+      "mode": "subagent",
+      "model": "dgx-spark/Qwen/Qwen3.5-122B-A10B-FP8",
+      "temperature": 0.2,
+      "tools": {
+        "write": true,
+        "edit": true,
+        "bash": false
+      },
+      "permission": {
+        "edit": "ask",
+        "bash": "deny"
+      },
+      "color": "#AA96DA"
+    },
+    "design-team": {
+      "description": "Design Team - Game design, équilibrage et UX",
+      "mode": "subagent",
+      "model": "dgx-spark/Qwen/Qwen3.5-122B-A10B-FP8",
+      "temperature": 0.5,
+      "tools": {
+        "write": true,
+        "edit": true,
+        "bash": false
+      },
+      "permission": {
+        "edit": "ask",
+        "bash": "deny"
+      },
+      "color": "#FCBAD3"
+    },
+    "meetings": {
+      "description": "Agent de réunion - Organise et anime les réunions",
+      "mode": "subagent",
+      "model": "dgx-spark/Qwen/Qwen3.5-122B-A10B-FP8",
+      "temperature": 0.3,
+      "tools": {
+        "write": true,
+        "edit": true,
+        "bash": false
+      },
+      "permission": {
+        "edit": "ask",
+        "bash": "deny"
+      },
+      "color": "#FFA07A"
+    }
+  }
+}
